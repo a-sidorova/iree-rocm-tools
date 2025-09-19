@@ -10,10 +10,12 @@ The dockerdile contains information to build [IREE](https://github.com/iree-org/
    su ${USER}
    ```
 
-1. Build the Docker image (build arguments are optional).
+1. Build the Docker image (build arguments are optional: the main branch from upstream repositories are cloned by default).
 
    ```bash
-   docker build -t <IDSID>-iree-rocm-dev:latest --build-arg IREE_REPO_URL=<> --build-arg IREE_BRANCH=<> .
+   docker build -t <IDSID>-iree-rocm-dev:latest \
+                --build-arg IREE_REPO_URL=<> --build-arg IREE_BRANCH=<> \
+                --build-arg IREE_TURBINE_REPO_URL=<> --build-arg IREE_TURBINE_BRANCH=<>.
    ```
 
 1. Run Docker container based on the built image with GPU support.

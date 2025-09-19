@@ -95,7 +95,24 @@ RUN cmake --build ${IREE_BUILD} -j $(nproc) && \
 
 # Update environment variables
 ENV PATH=${PATH}:${IREE_INSTALL}/bin
-ENV PYTHONPATH=${PYTHONPATH}:${IREE_BUILD}/compiler/bindings/python/:${IREE_BUILD}/iree/runtime/bindings/python
+ENV PYTHONPATH=${PYTHONPATH}:${IREE_BUILD}/compiler/bindings/python/:${IREE_BUILD}/runtime/bindings/python
+
+# Validate
+RUN python -c "import iree.compiler; help(iree.compiler)"
+RUN python -c "import iree.runtime; help(iree.runtime)"
+
+# Clone and build IREE-turbine Python API
+ARG IREE_TURBINE_REPO_URL="https://github.com/iree-org/iree-turbine.git"
+ARG IREE_TURBINE_BRANCH="main"
+
+ENV IREE_TURBINE_SRC=/opt/iree-turbine-src
+RUN git clone -b ${IREE_TURBINE_BRANCH} ${IREE_TURBINE_REPO_URL} ${IREE_TURBINE_SRC} && \
+    cd ${IREE_TURBINE_SRC} && git submodule update --init --recursive
+RUN python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+RUN python setup.py install
+
+# Validate
+RUN python -c "import iree.turbine; help(iree.turbine)"
 
 # Workspace should be mounted in runtime
 WORKDIR /workspace
