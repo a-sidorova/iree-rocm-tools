@@ -109,7 +109,7 @@ ENV IREE_TURBINE_SRC=/opt/iree-turbine-src
 RUN git clone -b ${IREE_TURBINE_BRANCH} ${IREE_TURBINE_REPO_URL} ${IREE_TURBINE_SRC} && \
     cd ${IREE_TURBINE_SRC} && git submodule update --init --recursive
 RUN python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-RUN python setup.py install
+RUN cd ${IREE_TURBINE_SRC} && python ./setup.py install
 
 # Validate
 RUN python -c "import iree.turbine; help(iree.turbine)"
