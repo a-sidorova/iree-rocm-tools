@@ -113,6 +113,7 @@ RUN cd ${IREE_TURBINE_SRC} && python ./setup.py install
 
 # Validate
 RUN python -c "import iree.turbine; help(iree.turbine)"
+RUN python -m pip install transformers
 
 # Workspace should be mounted in runtime
 WORKDIR /workspace
