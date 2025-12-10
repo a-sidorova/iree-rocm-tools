@@ -86,9 +86,9 @@ RUN cmake -S ${IREE_SRC} -B ${IREE_BUILD} \
           -DIREE_BUILD_COMPILER=ON \
           -DIREE_BUILD_PYTHON_BINDINGS=ON \
           -DPython3_EXECUTABLE=$(which python) \
-          -DIREE_BUILD_BINDINGS_TFLITE=OFF, \
-          -DIREE_BUILD_BINDINGS_TFLITE_JAVA=OFF, \
-          -DIREE_HAL_DRIVER_HIP=ON, \
+          -DIREE_BUILD_BINDINGS_TFLITE=OFF \
+          -DIREE_BUILD_BINDINGS_TFLITE_JAVA=OFF \
+          -DIREE_HAL_DRIVER_HIP=ON \
           -DIREE_TARGET_BACKEND_ROCM=ON
 RUN cmake --build ${IREE_BUILD} -j $(nproc) && \
     cmake --build ${IREE_BUILD} --target install -j $(nproc)
