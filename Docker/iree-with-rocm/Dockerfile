@@ -1,7 +1,7 @@
 # Dockerfile for work with IREE + ROCm
 
 # Update ROCm version if needed
-FROM rocm/dev-ubuntu-24.04:7.0-complete
+FROM rocm/dev-ubuntu-24.04:7.1.1-complete
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Dubai
